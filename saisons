@@ -1,0 +1,91 @@
+#!/bin/bash
+#Script pour mettre à jour Xmobar, etc... Selon la saison
+
+#Vérification saison actuelle
+if [ ! -f ~/Documents/Scripts/saisons-now ];then
+	touch ~/Documents/Scripts/saisons-now
+fi
+if [ ! $(wc -l ~/Documents/Scripts/saisons-now | cut -d " " -f1) -le 2 ]; then
+	rm ~/Documents/Scripts/saisons-now
+	touch ~/Documents/Scripts/saisons-now
+fi
+actu=$(cat ~/Documents/Scripts/saisons-now)
+auj=$(date +%j)
+
+#Noel
+if [ $auj -ge 342 -o $auj -le 8 ];then
+	sai=Noel
+	coul=0xB21900
+	audcol=11671808
+fi
+
+#Hiver
+if [ $auj -ge 9 -a $auj -le 77 ];then
+	sai=Hiver
+	coul=0xF8F8FF
+	audcol=16316671
+fi
+
+#Printemps
+if [ $auj -ge 78 -a $auj -le 172 ];then
+        sai=Printemps
+	coul=0x196519
+	audcol=1664281
+fi
+
+#Été
+if [ $auj -ge 173 -a $auj -le 264 ];then
+	sai=Été
+	coul=0x146A65
+	audcol=1337957
+fi
+
+#Automne
+if [ $auj -ge 265 -a $auj -le 341 ];then
+        sai=Automne
+	coul=0xFFAC4B
+	audcol=16755787
+fi
+
+#Test si la saison trouvée est différente de l'actuelle, si oui modifications des fichiers de configurations
+if [ "$sai" != "$actu" ];then
+	#Retrait des commentaires "--" en début de lignes
+	sed -i '/Thème/s/^--//' ~/.xmonad/xmonad.hs
+	sed -i '/Thème/s/^--//' ~/.xmobar/xmobarrc
+        sed -i '/Thème/s/^--//' ~/.xmobar/xmobarrc2
+	#Ajout des commentaires POUR TOUT THEME "--" en début de ligne
+	sed -i '/Thème/s/^/--/' ~/.xmonad/xmonad.hs
+	sed -i '/Thème/s/^/--/' ~/.xmobar/xmobarrc
+	sed -i '/Thème/s/^/--/' ~/.xmobar/xmobarrc2
+	#Retrait du commentaire pour activer le thème de la saison actuelle
+	sed -i '/Thème '$sai'/s/^--//' ~/.xmonad/xmonad.hs
+	sed -i '/Thème '$sai'/s/^--//' ~/.xmobar/xmobarrc
+	sed -i '/Thème '$sai'/s/^--//' ~/.xmobar/xmobarrc2
+
+	#Fichier rempli avec la saison actuelle
+	echo $sai > ~/Documents/Scripts/saisons-now
+	
+	#Changement de la couleur de Audacious
+	sed -i '/color=/d' ~/.config/audacious/config
+	sed -i '/BlurScope/a\color='$audcol'' ~/.config/audacious/config
+fi
+
+###
+#Tests
+echo "auj : $auj"
+echo "sai : $sai"
+echo "fond : $fond"
+echo "actuel : $actu"
+echo "coul : $coul"
+echo "audcol : $audcol"
+echo "alpha calculée : $(echo "`expr 255 - $(cat ~/.xmobar/xmobarrc | grep alpha | cut -d "=" -f2 | cut -d " " -f2)`")"
+###
+
+#Fond d'écran
+feh --randomize --bg-fill ~/Images/Fonds_écrans/$sai/*
+
+#Lancement trayer
+if [ "$(pidof trayer)" != "" ];then
+	kill $(pidof trayer)
+fi
+trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha $(echo "`expr 255 - $(cat ~/.xmobar/xmobarrc | grep alpha | cut -d "=" -f2 | cut -d " " -f2)`") --tint $coul --expand true --heighttype request --height 23 --padding 1 &

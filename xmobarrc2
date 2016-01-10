@@ -1,0 +1,30 @@
+Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
+       , iconRoot = "Images/Icônes/"
+--       , bgColor = "#FFAC4B" --Thème Automne
+--       , bgColor = "#146A65" --Thème Été
+       , bgColor = "#F8F8FF" --Thème Hiver
+--       , bgColor = "#B21900" --Thème Noel
+--       , bgColor = "#196519" --Thème Printemps
+--       , fgColor = "black" --Thème Automne
+--       , fgColor = "#FDFF7F" --Thème Été
+       , fgColor = "#333333" --Thème Hiver
+--       , fgColor = "white" --Thème Noel
+--       , fgColor = "#EEE8AA" --Thème Printemps
+       , alpha = 175
+       , position = Bottom
+--       , lowerOnStart = True
+       , commands = [ Run Weather "LFLB" ["-t"," <tempC>°C","-L","0","-H","30","--normal","green","--high","red","--low","lightblue"] 18000
+                    , Run Com "/bin/bash" ["-c","date '+%a %d %b %R'"] "date" 600
+                    , Run Com "/bin/bash" ["-c","audtool --current-song"] "aud1" 10
+                    , Run Com "/bin/bash" ["-c","audtool --current-song-output-length"] "aud2" 10
+                    , Run Com "/bin/bash" ["-c","audtool --current-song-length"] "aud3" 10
+                    , Run Com "/bin/bash" ["-c","amixer -c PAD get DAC|grep -m1 %|cut -d '[' -f2|cut -d ']' -f1"] "slvl" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+--       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#A52A2A>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Automne
+--       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#000080>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Été
+       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#009698>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Hiver
+--       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#000000>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Noel
+--       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#FFD700>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Printemps
+       }
