@@ -166,7 +166,7 @@ main = do
 	, layoutHook = myLayout
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "blue" "" . shorten 50
+                        , ppTitle = xmobarColor myTheme "" . shorten 50
                         , ppCurrent = xmobarColor myTheme "" . wrap "{" "}"
                         }
 --        , startupHook = myStartupHook
