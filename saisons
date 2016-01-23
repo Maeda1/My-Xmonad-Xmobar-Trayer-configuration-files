@@ -74,7 +74,6 @@ fi
 #Tests
 echo "auj : $auj"
 echo "sai : $sai"
-echo "fond : $fond"
 echo "actuel : $actu"
 echo "coul : $coul"
 echo "audcol : $audcol"
