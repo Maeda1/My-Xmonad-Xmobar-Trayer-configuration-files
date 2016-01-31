@@ -20,6 +20,7 @@ import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Spacing
 import XMonad.Layout.Grid
+import XMonad.Layout.Renamed
 
 --IM
 import Data.Ratio ((%))
@@ -59,6 +60,7 @@ myKeys =
         , ("M-g", spawn "gramps")
         , ("M-s", spawn "shotwell")
         , ("M-w", scratchPad)
+        , ("<XF86Messenger>", spawn "~/Documents/Scripts/ssv_ziks1")
         ]
         where
          scratchPad = scratchpadSpawnActionTerminal "urxvt -pe tabbed"
@@ -69,19 +71,22 @@ myWorkspaces = ["1", "2M", "3w", "4Z", "5F", "6B", "7P", "8o", "9C"]
 --Hooks
 myLayout = onWorkspace "2M" tiersLayout $ onWorkspace "3w" tiersLayout $ onWorkspace "4Z" zikLayout $ onWorkspace "9C" imLayout $ standardLayouts
   where
-   standardLayouts = avoidStruts $ smartBorders $ (Mirror tiled ||| tiled ||| Full)
-   tiled = Tall nmaster delta ratio
+   standardLayouts = avoidStruts $ smartBorders $ (horiz ||| verti ||| full)
+   verti = renamed [Replace "[V]"] $ Tall nmaster delta ratio
    nmaster = 1
    ratio = 1/2
    delta = 3/100
+   horiz = renamed [Replace "[H]"] $ Mirror verti
+   full = renamed [Replace "[F]"] $ Full
    imLayout = avoidStruts $ smartBorders $ withIM (1/5) (Role "roster") gridLayout ||| standardLayouts
    gridLayout = Grid 
-   tiersLayout = avoidStruts $ smartBorders $ (Mirror tiers ||| tiers ||| Full)
+   tiersLayout = avoidStruts $ smartBorders $ (tiersH ||| tiersV ||| full)
     where
-     tiers = Tall nmastertiers deltatiers ratiotiers
+     tiersV = renamed [Replace "[V3]"] $ Tall nmastertiers deltatiers ratiotiers
      nmastertiers = 1
      deltatiers = 3/100
      ratiotiers = 66/100
+     tiersH = renamed [Replace "[H3]"] $ Mirror tiersV
    zikLayout = avoidStruts $ smartBorders $ (zik ||| Mirror zik ||| Full)
     where
      zik = Tall nmasterzik deltazik ratiozik
