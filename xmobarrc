@@ -2,23 +2,23 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
        , iconRoot = "Images/Icônes/"
 --       , bgColor = "#FFAC4B" --Thème Automne
 --       , bgColor = "#146A65" --Thème Été
-       , bgColor = "#F8F8FF" --Thème Hiver
+--       , bgColor = "#F8F8FF" --Thème Hiver
 --       , bgColor = "#B21900" --Thème Noel
---       , bgColor = "#196519" --Thème Printemps
+       , bgColor = "#20275e" --Thème Printemps
 --       , fgColor = "black" --Thème Automne
 --       , fgColor = "#FDFF7F" --Thème Été
-       , fgColor = "#333333" --Thème Hiver
+--       , fgColor = "#333333" --Thème Hiver
 --       , fgColor = "white" --Thème Noel
---       , fgColor = "#EEE8AA" --Thème Printemps
+       , fgColor = "#EEE8AA" --Thème Printemps
        , alpha = 175
        , position = TopW L 100
        , commands = [ Run StdinReader
                     , Run Com "/bin/bash" ["-c","sensors|grep id|cut -d + -f2|cut -d . -f1"] "tcpu" 50
-                    , Run Cpu ["-t","<bar>","-L","40","-H","75","--normal","green","--high","red"] 30
+                    , Run Cpu ["-t","<bar>","-L","40","-H","85","--normal","green","--high","red"] 30
                     , Run Memory ["-t","<usedratio>%","-H","90","--high","red"] 50
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:0]/GPUCoreTemp"] "tgt220" 50
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:1]/GPUCoreTemp"] "tgt430" 50
-                    , Run Com "/bin/bash" ["Documents/Scripts/networkrpi"] "networkrpi" 50
+                    , Run Com "/bin/bash" ["Documents/Scripts/networkrpi"] "networkrpi" 600
                     ]
        , sepChar = "%"
        , alignSep = "}{"
