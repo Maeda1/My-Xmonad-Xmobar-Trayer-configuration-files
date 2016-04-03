@@ -18,10 +18,11 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
                     , Run Memory ["-t","<usedratio>%","-H","90","--high","red"] 50
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:0]/GPUCoreTemp"] "tgt220" 50
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:1]/GPUCoreTemp"] "tgt430" 50
+                    , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:0]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt220" 50
                     , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:1]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt430" 50
                     , Run Com "/bin/bash" ["Documents/Scripts/networkrpi"] "networkrpi" 600
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt220%°C | <icon=cuda_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi%}{"
+       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt220%°C %pgt220%٪ | <icon=cuda_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi%}{"
        }
