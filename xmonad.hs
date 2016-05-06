@@ -21,6 +21,7 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Spacing
 import XMonad.Layout.Grid
 import XMonad.Layout.Renamed
+import XMonad.Layout.Reflect
 
 --IM
 import Data.Ratio ((%))
@@ -69,7 +70,7 @@ myKeys =
 myWorkspaces = ["1", "2M", "3w", "4Z", "5F", "6B", "7P", "8o", "9C"]
 
 --Hooks
-myLayout = onWorkspace "2M" tiersLayout $ onWorkspace "3w" tiersLayout $ onWorkspace "4Z" zikLayout $ onWorkspace "9C" imLayout $ standardLayouts
+myLayout = onWorkspace "2M" tiersLayout $ onWorkspace "3w" tiersLayout $ onWorkspace "4Z" zikLayout $ onWorkspace "7P" gimpLayout $ onWorkspace "9C" imLayout $ standardLayouts
   where
    standardLayouts = avoidStruts $ smartBorders $ (horiz ||| verti ||| full)
    verti = renamed [Replace "[V]"] $ Tall nmaster delta ratio
@@ -78,7 +79,7 @@ myLayout = onWorkspace "2M" tiersLayout $ onWorkspace "3w" tiersLayout $ onWorks
    delta = 3/100
    horiz = renamed [Replace "[H]"] $ Mirror verti
    full = renamed [Replace "[F]"] $ Full
-   imLayout = avoidStruts $ smartBorders $ withIM (1/5) (Role "roster") gridLayout ||| standardLayouts
+   imLayout = avoidStruts $ smartBorders $ (renamed [Replace "[IM]"] $ withIM (1/5) (Role "roster") gridLayout) ||| standardLayouts
    gridLayout = Grid 
    tiersLayout = avoidStruts $ smartBorders $ (tiersH ||| tiersV ||| full)
     where
@@ -93,6 +94,7 @@ myLayout = onWorkspace "2M" tiersLayout $ onWorkspace "3w" tiersLayout $ onWorks
      nmasterzik = 2
      deltazik = 3/100
      ratiozik = 72/100
+   gimpLayout = avoidStruts $ smartBorders $ (renamed [Replace "[Gimp]"] $ withIM 0.10 (Role "gimp-toolbox") $ reflectHoriz $ withIM 0.19 (Role "gimp-dock") gridLayout) ||| horiz ||| verti
 
 myManageHook = (composeAll
    [ className =? "Rhythmbox" --> doShift "4Z"
@@ -157,9 +159,9 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
 ----THEMES /!\ géré en auto par script saisons
 --myTheme = "#A52A2A" --Thème Automne
 --myTheme = "#000080" --Thème Été
-myTheme = "#009698" --Thème Hiver
+--myTheme = "#009698" --Thème Hiver
 --myTheme = "#00CC3A" --Thème Noel
---myTheme = "#FFD700" --Thème Printemps
+myTheme = "#FFD700" --Thème Printemps
 
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmobar/xmobarrc"
