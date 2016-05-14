@@ -13,6 +13,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.UrgencyHook
 
 --Layouts
 import XMonad.Layout.NoBorders
@@ -133,6 +134,7 @@ myManageHook = (composeAll
    , className =? "Audacious" --> doShift "4Z"
    , className =? "Inkscape" --> doShift "7P"
    , resource =? "canto-xmonad" --> doShift "6B"
+   , resource =? "irssi-xmonad" --> doShift "9C"
    , resource =? "file_properties" --> doFloat
    , (className /=? "Audacious" <&&> fmap not isDialog <&&> role /=? "Msgcompose" <&&> role /=? "Preferences" <&&> role /=? "filterlist" <&&> role /=? "EventDialog" <&&> role /=? "certmanager" <&&> role /=? "AlarmWindow") --> insertPosition Below Newer
    , manageDocks
@@ -165,7 +167,7 @@ myTheme = "#FFD700" --Thème Printemps
 
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmobar/xmobarrc"
-    xmonad $  azertyConfig
+    xmonad $ withUrgencyHook NoUrgencyHook $ azertyConfig
         { workspaces = myWorkspaces
 	, terminal = myTerminal
         , manageHook = myManageHook <+> manageHook defaultConfig
