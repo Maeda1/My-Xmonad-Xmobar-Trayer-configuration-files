@@ -1,10 +1,13 @@
 Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
+--Icon folder
        , iconRoot = "Images/Icônes/"
+--Season theme : background
 --       , bgColor = "#FFAC4B" --Thème Automne
 --       , bgColor = "#146A65" --Thème Été
 --       , bgColor = "#F8F8FF" --Thème Hiver
 --       , bgColor = "#B21900" --Thème Noel
        , bgColor = "#20275e" --Thème Printemps
+--Season theme : foreground
 --       , fgColor = "black" --Thème Automne
 --       , fgColor = "#FDFF7F" --Thème Été
 --       , fgColor = "#333333" --Thème Hiver
@@ -15,9 +18,11 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
 --       , lowerOnStart = True
        , commands = [ Run Weather "LFLB" ["-t"," <tempC>°C","-L","0","-H","30","--normal","green","--high","red","--low","lightblue"] 18000
                     , Run Com "/bin/bash" ["-c","date '+%a %d %b %R'"] "date" 600
+--Audacious music player
                     , Run Com "/bin/bash" ["-c","if [ $(pidof audacious) ];then echo `audtool --current-song`;else echo -;fi"] "aud1" 10
                     , Run Com "/bin/bash" ["-c","if [ $(pidof audacious) ];then echo `audtool --current-song-output-length`;else echo -;fi"] "aud2" 10
                     , Run Com "/bin/bash" ["-c","if [ $(pidof audacious) ];then echo `audtool --current-song-length`;else echo -;fi"] "aud3" 10
+--Sound card output volume %
                     , Run Com "/bin/bash" ["-c","amixer -c PAD get DAC|grep -m1 %|cut -d '[' -f2|cut -d ']' -f1"] "slvl" 10
                     ]
        , sepChar = "%"

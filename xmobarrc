@@ -1,10 +1,13 @@
 Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
+--Icon folder
        , iconRoot = "Images/Icônes/"
+--Season theme : background
 --       , bgColor = "#FFAC4B" --Thème Automne
 --       , bgColor = "#146A65" --Thème Été
 --       , bgColor = "#F8F8FF" --Thème Hiver
 --       , bgColor = "#B21900" --Thème Noel
        , bgColor = "#20275e" --Thème Printemps
+--Season theme : foreground
 --       , fgColor = "black" --Thème Automne
 --       , fgColor = "#FDFF7F" --Thème Été
 --       , fgColor = "#333333" --Thème Hiver
@@ -13,16 +16,25 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
        , alpha = 175
        , position = TopW L 100
        , commands = [ Run StdinReader
+--CPU temp
                     , Run Com "/bin/bash" ["-c","sensors|grep id|cut -d + -f2|cut -d . -f1"] "tcpu" 50
+--CPU %
                     , Run Cpu ["-t","<bar>","-L","40","-H","85","--normal","green","--high","red"] 30
+--Memory %
                     , Run Memory ["-t","<usedratio>%","-H","90","--high","red"] 50
+--Nvidia GPU#1 temp
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:0]/GPUCoreTemp"] "tgt220" 50
+--Nvidia GPU#2 temp
                     , Run Com "nvidia-settings" ["-t","-q","[gpu:1]/GPUCoreTemp"] "tgt430" 50
+--Nvidia GPU#1 used % 
                     , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:0]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt220" 50
+--Nvidia GPU#2 used % 
                     , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:1]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt430" 50
+--My own script
                     , Run Com "/bin/bash" ["Documents/Scripts/networkrpi"] "networkrpi" 600
+                    , Run Com "/bin/bash" ["Documents/Scripts/netfreebox"] "netfreebox" 300
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt220%°C %pgt220%٪ | <icon=cuda_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi%}{"
+       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt220%°C %pgt220%٪ | <icon=cuda_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi% | %netfreebox%}{"
        }
