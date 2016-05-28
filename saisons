@@ -80,8 +80,8 @@ echo "audcol : $audcol"
 echo "alpha calculée : $(echo "`expr 255 - $(cat ~/.xmobar/xmobarrc | grep alpha | cut -d "=" -f2 | cut -d " " -f2)`")"
 ###
 
-#Fond d'écran
-feh --randomize --bg-fill ~/Images/Fonds_écrans/$sai/*
+#Fond d'écran -> remplacé par cron
+#feh --randomize --bg-fill ~/Images/Fonds_écrans/$sai/*
 
 #Lancement trayer
 if [ "$(pidof trayer)" != "" ];then
