@@ -81,6 +81,7 @@ echo "alpha calculée : $(echo "`expr 255 - $(cat ~/.xmobar/xmobarrc | grep alph
 ###
 
 #Fond d'écran -> remplacé par cron
+feh -r --randomize --bg-fill ~/Album/Photos/*/*/*.`date +\%m`.*/
 #feh --randomize --bg-fill ~/Images/Fonds_écrans/$sai/*
 
 #Lancement trayer
