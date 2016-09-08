@@ -2,17 +2,17 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
 --Icon folder
        , iconRoot = "Images/Icônes/"
 --Season theme : background
---       , bgColor = "#FFAC4B" --Thème Automne
---       , bgColor = "#146A65" --Thème Été
---       , bgColor = "#F8F8FF" --Thème Hiver
---       , bgColor = "#B21900" --Thème Noel
-       , bgColor = "#20275e" --Thème Printemps
+--       , bgColor = "#FF4BAC" --Thème Automne
+       , bgColor = "#146565" --Thème Été
+--       , bgColor = "#F8FFF8" --Thème Hiver
+--       , bgColor = "#B20019" --Thème Noel
+--       , bgColor = "#205e27" --Thème Printemps
 --Season theme : foreground
 --       , fgColor = "black" --Thème Automne
---       , fgColor = "#FDFF7F" --Thème Été
+       , fgColor = "#FDFF7F" --Thème Été
 --       , fgColor = "#333333" --Thème Hiver
 --       , fgColor = "white" --Thème Noel
-       , fgColor = "#EEE8AA" --Thème Printemps
+--       , fgColor = "#EEE8AA" --Thème Printemps
        , alpha = 175
        , position = TopW L 100
        , commands = [ Run StdinReader

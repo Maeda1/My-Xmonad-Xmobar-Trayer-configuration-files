@@ -2,17 +2,17 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
 --Icon folder
        , iconRoot = "Images/Icônes/"
 --Season theme : background
---       , bgColor = "#FFAC4B" --Thème Automne
---       , bgColor = "#146A65" --Thème Été
---       , bgColor = "#F8F8FF" --Thème Hiver
---       , bgColor = "#B21900" --Thème Noel
-       , bgColor = "#20275e" --Thème Printemps
+--       , bgColor = "#FF4BAC" --Thème Automne
+       , bgColor = "#14656A" --Thème Été
+--       , bgColor = "#F8FFF8" --Thème Hiver
+--       , bgColor = "#B20019" --Thème Noel
+--       , bgColor = "#205E27" --Thème Printemps
 --Season theme : foreground
 --       , fgColor = "black" --Thème Automne
---       , fgColor = "#FDFF7F" --Thème Été
+       , fgColor = "#FDFF7F" --Thème Été
 --       , fgColor = "#333333" --Thème Hiver
 --       , fgColor = "white" --Thème Noel
-       , fgColor = "#EEE8AA" --Thème Printemps
+--       , fgColor = "#EEE8AA" --Thème Printemps
        , alpha = 175
        , position = Bottom
 --       , lowerOnStart = True
@@ -28,8 +28,8 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
        , sepChar = "%"
        , alignSep = "}{"
 --       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#A52A2A>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Automne
---       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#000080>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Été
+       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#000080>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Été
 --       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#009698>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Hiver
 --       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#000000>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Noel
-       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#FFD700>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Printemps
+--       , template = "<icon=music_icon.xpm/><action=`audtool --playlist-advance` button=1><action=`audtool --playlist-reverse` button=3>%aud1% </action></action><icon=durée_icon.xpm/><action=`audtool --playback-playpause` button=1>%aud2%/%aud3%</action>}{<icon=volume_icon.xpm/>%slvl% | <action=`zenity --calendar` button=1><fc=#FFD700>%date%</fc></action> |<icon=weather_icon.xpm/>%LFLB%" --Thème Printemps
        }
