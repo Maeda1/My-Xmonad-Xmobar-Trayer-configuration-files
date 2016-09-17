@@ -1,4 +1,4 @@
-# configuration
+# My-Xmonad-Xmobar-Trayer-configuration-files
 Configuration files for my system (Archlinux / Xmonad / two Xmobar bars / Trayer) and dynamic colors and background depending on seasons)
 
 Please check and adapt files and folders links that are mine (pictures folders, etc.), if you want to pick some of my code to get into yours ;)
