@@ -3,16 +3,16 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
        , iconRoot = "Images/Icônes/"
 --Season theme : background
 --       , bgColor = "#FF4BAC" --Thème Automne
-       , bgColor = "#146565" --Thème Été
+--       , bgColor = "#146565" --Thème Été
 --       , bgColor = "#F8FFF8" --Thème Hiver
 --       , bgColor = "#B20019" --Thème Noel
---       , bgColor = "#205e27" --Thème Printemps
+       , bgColor = "#20275e" --Thème Printemps
 --Season theme : foreground
 --       , fgColor = "black" --Thème Automne
-       , fgColor = "#FDFF7F" --Thème Été
+--       , fgColor = "#FDFF7F" --Thème Été
 --       , fgColor = "#333333" --Thème Hiver
 --       , fgColor = "white" --Thème Noel
---       , fgColor = "#EEE8AA" --Thème Printemps
+       , fgColor = "#EEE8AA" --Thème Printemps
        , alpha = 175
        , position = TopW L 100
        , commands = [ Run StdinReader
@@ -23,18 +23,18 @@ Config { font = "xft:DejaVu Sans:size=15:bold:antialias=true"
 --Memory %
                     , Run Memory ["-t","<usedratio>%","-H","90","--high","red"] 50
 --Nvidia GPU#1 temp
-                    , Run Com "nvidia-settings" ["-t","-q","[gpu:0]/GPUCoreTemp"] "tgt220" 50
+                    , Run Com "nvidia-settings" ["-t","-q","[gpu:0]/GPUCoreTemp"] "tgt430" 50
 --Nvidia GPU#2 temp
-                    , Run Com "nvidia-settings" ["-t","-q","[gpu:1]/GPUCoreTemp"] "tgt430" 50
+                    , Run Com "nvidia-settings" ["-t","-q","[gpu:1]/GPUCoreTemp"] "tgt750" 50
 --Nvidia GPU#1 used % 
-                    , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:0]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt220" 50
+                    , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:0]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt430" 50
 --Nvidia GPU#2 used % 
-                    , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:1]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt430" 50
+                    , Run Com "/bin/bash" ["-c","nvidia-settings -t -q '[gpu:1]/GPUUtilization' | cut -d ',' -f1 | cut -d '=' -f2"] "pgt750" 50
 --My own script
-                    , Run Com "/bin/bash" ["Documents/Scripts/networkrpi"] "networkrpi" 600
-                    , Run Com "/bin/bash" ["Documents/Scripts/netfreebox"] "netfreebox" 300
+                    , Run Com "/bin/bash" ["Documents/Scripts/Système/Réseau/Raspberry/Rpi/networkrpi"] "networkrpi" 600
+                    , Run Com "/bin/bash" ["Documents/Scripts/Système/Réseau/Freebox/netfreebox"] "netfreebox" 300
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt220%°C %pgt220%٪ | <icon=cuda_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi% | %netfreebox%}{"
+       , template = "%StdinReader% | <icon=cpu_intel_icon.xpm/>%tcpu%°C %cpu% | <icon=memory_icon.xpm/>%memory% | <icon=nvidia_icon.xpm/>▹%tgt430%°C %pgt430%٪ | <icon=cuda_icon.xpm/>▹%tgt750%°C %pgt750%٪ | <icon=Raspberry_Pi_Logo.xpm/>▹%networkrpi% | %netfreebox%}{"
        }
