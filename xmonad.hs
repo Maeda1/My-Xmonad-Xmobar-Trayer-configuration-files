@@ -7,11 +7,16 @@ import XMonad.Util.EZConfig(additionalKeysP)
 import qualified XMonad.StackSet as W
 import System.IO
 import XMonad.Util.Scratchpad
+import System.Environment
+import System.FilePath.Posix
+import XMonad.Prompt
+import System.Directory
+import System.FilePath.Find
 
 --Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ManageHelpers as H
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.UrgencyHook
 
@@ -49,8 +54,8 @@ myKeys =
         , ("<XF86Calculator>", spawn "gcalctool")
         , ("<XF86Tools>", spawn "audacious")
         , ("C-<XF86Tools>", spawn "audtool --playback-stop")
-        , ("<XF86Explorer>", spawn "~/Documents/Scripts/Programme_tv")
-        , ("C-<XF86Explorer>", spawn "~/Documents/Scripts/tv")
+        , ("<XF86Explorer>", spawn "~/Documents/Scripts/Vidéos/tv/Programme_tv")
+        , ("C-<XF86Explorer>", spawn "~/Documents/Scripts/Vidéos/tv/tv")
         , ("<Print>", spawn "sleep 0.2; scrot -s '%Y%m%d%H%M%S.png' -e 'mv $f ~/Images/Captures/'")
         , ("C-<Print>", spawn "scrot '%Y%m%d%H%M%S.png' -e 'mv $f ~/Images/Captures/'")
         , ("<XF86AudioStop>", spawn "audtool --playback-stop")
@@ -62,7 +67,8 @@ myKeys =
         , ("M-g", spawn "gramps")
         , ("M-s", spawn "shotwell")
         , ("M-w", scratchPad)
-        , ("<XF86Messenger>", spawn "~/Documents/Scripts/ssv_ziks1")
+        , ("<XF86Messenger>", spawn "~/Documents/Scripts/Système/Audacious/ssv_ziks1")
+        , ("M-m", passPrompt myXPConfig)
         ]
         where
          scratchPad = scratchpadSpawnActionTerminal "urxvt -pe tabbed"
@@ -120,6 +126,7 @@ myManageHook = (composeAll
    --A-- and float everything but the roster
    --A-- , classNotRole ("Gajim", "roster") --> doFloat
    , className =? "Mumble" --> doShift "9C"
+   , className =? "discord" --> doShift "9C"
    , className =? "Bombono-dvd" --> doShift "5F"
    , className =? "Devede" --> doShift "5F"
    , className =? "Photivo" --> doShift "7P"
@@ -136,7 +143,7 @@ myManageHook = (composeAll
    , resource =? "canto-xmonad" --> doShift "6B"
    , resource =? "irssi-xmonad" --> doShift "9C"
    , resource =? "file_properties" --> doFloat
-   , (className /=? "Audacious" <&&> fmap not isDialog <&&> role /=? "Msgcompose" <&&> role /=? "Preferences" <&&> role /=? "filterlist" <&&> role /=? "EventDialog" <&&> role /=? "certmanager" <&&> role /=? "AlarmWindow") --> insertPosition Below Newer
+   , (className H./=? "Audacious" <&&> fmap not isDialog <&&> role H./=? "Msgcompose" <&&> role H./=? "Preferences" <&&> role H./=? "filterlist" <&&> role H./=? "EventDialog" <&&> role H./=? "certmanager" <&&> role H./=? "AlarmWindow") --> insertPosition Below Newer
    , manageDocks
    ])
    <+> manageScratchPad
@@ -158,12 +165,36 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
 --    spawn "xmobar ~/.xmobar/xmobarrc2"
 
 --Variables persos
-----THEMES /!\ géré en auto par script saisons
+----THEMES coutour fenêtres /!\ géré en auto par script saisons
 --myTheme = "#A52A2A" --Thème Automne
 --myTheme = "#000080" --Thème Été
 --myTheme = "#009698" --Thème Hiver
 --myTheme = "#00CC3A" --Thème Noel
 myTheme = "#FFD700" --Thème Printemps
+
+----THEMES fond fenêtres/!\ géré en auto par script saisons
+--mybgColor = "#FFAC4B" --Thème Automne
+--mybgColor = "#146565" --Thème Été
+--mybgColor = "#F8F8FF" --Thème Hiver
+--mybgColor = "#B21900" --Thème Noel
+mybgColor = "#205E27" --Thème Printemps
+
+----THEMES couleur texte/!\ géré en auto par script saisons
+--myfgColor = "black" --Thème Automne
+--myfgColor = "#FDFF7F" --Thème Été
+--myfgColor = "#333333" --Thème Hiver
+--myfgColor = "white" --Thème Noel
+myfgColor = "#EEE8AA" --Thème Printemps
+
+myXPConfig = defaultXPConfig
+                   { position = Bottom
+                   , promptBorderWidth = 1
+                   , font = "xft:DejaVu Sans:size=15:bold:antialias=true"
+                   , borderColor = myTheme
+                   , fgColor = myfgColor
+                   , bgColor = mybgColor
+                   , height = 25
+                   }
 
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmobar/xmobarrc"
@@ -183,4 +214,27 @@ main = do
         , focusedBorderColor = myTheme -- Couleur coutour fenêtre qui a focus
         , borderWidth = 4
         } `additionalKeysP` myKeys
+
+data Pass = Pass
+
+instance XPrompt Pass where
+  showXPrompt       Pass = "pass [autres, chat, forums, labs, mails, social, système, web]:"
+  commandToComplete _ c  = c
+  nextCompletion      _  = getNextCompletion
+
+passPrompt :: XPConfig -> X ()
+passPrompt c = do
+  li <- io getPasswords
+  mkXPrompt Pass c (mkComplFunFromList li) selectPassword
+
+selectPassword :: String -> X ()
+selectPassword s = spawn $ "pass -c " ++ s
+
+getPasswords :: IO [String]
+getPasswords = do
+  home <- getEnv "HOME"
+  let passwordStore = home </> ".password-store"
+  entries <- find System.FilePath.Find.always (fileName ~~? "*.gpg") $
+    passwordStore
+  return $ map ((makeRelative passwordStore) . dropExtension) entries
 
