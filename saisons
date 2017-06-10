@@ -1,15 +1,19 @@
 #!/bin/bash
 #Script pour mettre à jour Xmobar, etc... Selon la saison
 
+myself="$(readlink -f $0)"
+mydir="${myself%/*}"
+eval mydir=$mydir
+
 #Vérification saison actuelle
-if [ ! -f ~/Documents/Scripts/saisons-now ];then
-	touch ~/Documents/Scripts/saisons-now
+if [ ! -f "$mydir/saisons-now" ];then
+	touch "$mydir/saisons-now"
 fi
-if [ ! $(wc -l ~/Documents/Scripts/saisons-now | cut -d " " -f1) -le 2 ]; then
-	rm ~/Documents/Scripts/saisons-now
-	touch ~/Documents/Scripts/saisons-now
+if [ ! $(wc -l "$mydir/saisons-now" | cut -d " " -f1) -le 2 ]; then
+	rm "$mydir/saisons-now"
+	touch "$mydir/saisons-now"
 fi
-actu=$(cat ~/Documents/Scripts/saisons-now)
+actu=$(cat "$mydir/saisons-now")
 auj=$(date +%j)
 
 #Noel
@@ -63,11 +67,15 @@ if [ "$sai" != "$actu" ];then
 	sed -i '/Thème '$sai'/s/^--//' ~/.xmobar/xmobarrc2
 
 	#Fichier rempli avec la saison actuelle
-	echo $sai > ~/Documents/Scripts/saisons-now
-	
-	#Changement de la couleur de Audacious
-	sed -i '/color=/d' ~/.config/audacious/config
-	sed -i '/BlurScope/a\color='$audcol'' ~/.config/audacious/config
+	echo $sai > "$mydir/saisons-now"
+fi
+#Changement de la couleur de Audacious
+sed -i '/color=/d' ~/.config/audacious/config
+sed -i '/BlurScope/a\color='$audcol'' ~/.config/audacious/config
+if [ ! "$(cat ~/.config/audacious/config | grep BlurScope)" ];then
+	sed -n -i 'p;1a [BlurScope]' ~/.config/audacious/config
+	sed -n -i 'p;2a color='$audcol'' ~/.config/audacious/config
+	sed -i "3"G ~/.config/audacious/config
 fi
 
 ###
@@ -81,7 +89,7 @@ echo "alpha calculée : $(echo "`expr 255 - $(cat ~/.xmobar/xmobarrc | grep alph
 ###
 
 #Fond d'écran -> remplacé par cron
-feh -r --randomize --bg-fill ~/Album/Photos/*/*/*.`date +\%m`.*/
+#feh -r --randomize --bg-fill ~/Album/Photos/*/*/*.`date +\%m`.*/
 #feh --randomize --bg-fill ~/Images/Fonds_écrans/$sai/*
 
 #Lancement trayer
